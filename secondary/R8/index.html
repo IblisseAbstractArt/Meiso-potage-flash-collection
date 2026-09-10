@@ -259,7 +259,7 @@
   <p style="text-align: center;"><a href="crossfade.html"><img src="cover/eastern_crs.png" alt="東方宴酒塚　作品紹介ムービー"/></a></p>
   </div>
   <div id="content">
-    <h2>作品リスト <span class="x-small">Product List</span></h2>
+    <h2 id="product-list">作品リスト <span class="x-small">Product List</span></h2>
     <div class="archive-grid clearfix">
       
       <div class="archive-item">
@@ -548,7 +548,14 @@
   init();
 })();
 </script> 
- </div>
+ 
+    <script>
+  function scrollToProductList() {
+    document.getElementById('product-list').scrollIntoView({ behavior: 'smooth' });
+  }
+    </script>
+        
+    </div>
     <h2>アナウンス <span class="x-small">Topics</span></h2>
     
     <div class="caution">
