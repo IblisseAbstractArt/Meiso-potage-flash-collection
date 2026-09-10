@@ -547,9 +547,16 @@
   init();
 })();
 </script> 
+    
+    <script>
+  function scrollToProductList() {
+    document.getElementById('topics').scrollIntoView({ behavior: 'smooth' });
+  }
+    </script>
+    
     </div>
   </div>
-    <h2>アナウンス <span class="x-small">Topics</span></h2>
+    <h2 id="topics">アナウンス <span class="x-small">Topics</span></h2>
     
     <div class="caution">
         <h3>Reitaisai 7 Participation Information</h3>
