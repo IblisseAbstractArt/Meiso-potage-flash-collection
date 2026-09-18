@@ -276,6 +276,37 @@
   font-weight: bold;
   border-radius: 3px;
 }
+        #media-controls {
+    width: 480px;
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#media-controls a {
+    display: block;
+    width: 100px;
+    height: 100px;
+}
+
+#media-controls a img {
+    display: block;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+#media-controls a:hover {
+    opacity: 0.75;
+}
+
+@media (max-width: 520px) {
+    #media-controls {
+        width: 100%;
+        padding: 0 8px;
+    }
+}
     </style>
 </head>
 <body>
@@ -312,10 +343,20 @@
   <embed src="swf/pacheStone.swf" quality="low" wmode="opaque" width="800" height="600" type="application/x-shockwave-flash" />
   </div>
 
+    <div id="media-controls" aria-label="Animation navigation">
+  <a href="yuki.html" aria-label="Previous animation">
+    <img src="../layout/srt_prev.png" alt="Previous">
+  </a>
+        
   <button id="visuals-toggle" aria-label="Toggle visual effects" title="Toggle VHS/CRT effects">
     <img src="../layout/str_visuals_button.png" alt="Toggle Visuals"/>
   </button>
 
+         <a href="kagi.html" aria-label="Next animation">
+    <img src="../layout/srt_next.png" alt="Next">
+  </a>
+    </div>
+    
   <div id="content">
     <div id="info" class="clearfix">
       <h2>プロダクトゲーム <span class="x-small">Information Game</span></h2>
