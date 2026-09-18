@@ -19,20 +19,22 @@ a { color:#930; } a:hover { color:#f33; }
 #headernav li a { display:block; width:100%; height:50px; text-indent:-9999px; background:url('../layout/globalnav.gif') #f90; }
 #nav_info a { background-position:0 0; } #nav_product a { background-position:-130px 0; } #nav_member a { background-position:-260px 0; } #nav_about a { background-position:-390px 0; } #nav_cheer a { background-position:-520px 0; } #nav_link a { background-position:-650px 0; }
 #nav_info a:hover { background-position:0 -50px; } #nav_product a:hover { background-position:-130px -50px; } #nav_member a:hover { background-position:-260px -50px; } #nav_about a:hover { background-position:-390px -50px; } #nav_cheer a:hover { background-position:-520px -50px; } #nav_link a:hover { background-position:-650px -50px; }
-#visual3 { margin:20px auto; background:#fff; width:480px; height:380px; text-align:center; overflow:hidden; position:relative; border:2px solid #222; box-shadow:0 0 15px rgba(0,0,0,.5); filter:url(#vhs-rgb-classic); will-change:filter; }
+#visual3 { margin:20px auto 8px; background:#fff; width:480px; height:380px; text-align:center; overflow:hidden; position:relative; border:2px solid #222; box-shadow:0 0 15px rgba(0,0,0,.5); filter:url(#vhs-rgb-classic); will-change:filter; }
 #visual3 embed { display:block; }
 #visual3::after { content:" "; display:block; position:absolute; inset:0; box-shadow:inset 0 0 80px rgba(0,0,0,.85),inset 0 0 20px #000; background:linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,.1) 50%),linear-gradient(90deg,rgba(255,0,0,.02),rgba(0,255,0,.01),rgba(0,0,255,.02)); background-size:100% 6px,5px 100%; pointer-events:none; z-index:10; }
 #visual3::before { content:" "; display:block; position:absolute; inset:0 0 auto; height:12%; background:linear-gradient(to bottom,transparent,rgba(255,255,255,.08),transparent); pointer-events:none; z-index:15; animation:crt-roll 8s linear infinite; }
 @keyframes crt-roll { from { transform:translateY(-100%); } to { transform:translateY(900%); } }
-#visual-nav { position:absolute; inset:0; z-index:20; pointer-events:none; display:flex; align-items:flex-end; justify-content:space-between; padding:0 8px 8px; }
-#visual-nav button { pointer-events:auto; padding:0; width:44px; height:44px; cursor:pointer; border:0; background:rgba(255,255,255,.75); border-radius:4px; }
-#visual-nav img { display:block; width:44px; height:44px; object-fit:contain; }
-#visual-nav button:hover { background:#fff; } #visual-nav button:active { transform:scale(.94); }
-#visuals-toggle { display:block; margin:10px auto; cursor:pointer; background:none; border:0; } #visuals-toggle img { width:250px; height:auto; display:block; }
+#media-controls { width:480px; height:58px; margin:0 auto 8px; display:flex; align-items:center; justify-content:space-between; }
+#media-controls button { flex:0 0 44px; width:44px; height:44px; padding:0; cursor:pointer; border:0; background:rgba(255,255,255,.85); border-radius:4px; box-shadow:0 1px 4px rgba(0,0,0,.18); }
+#media-controls button img { display:block; width:44px; height:44px; object-fit:contain; }
+#media-controls button:hover { background:#fff; } #media-controls button:active { transform:scale(.94); }
+#visuals-toggle { display:block; margin:0 auto 10px; cursor:pointer; background:none; border:0; }
+#visuals-toggle img { width:250px; height:auto; display:block; }
 #content { clear:both; } #content h2 { margin:0 0 .5em; padding:.2em 30px; color:#fff; font-weight:bold; letter-spacing:.2em; background:url('../layout/h2.gif') center left no-repeat #f90; border-bottom:2px solid #ddd; } #content p { padding:.5em; }
 #info { margin-bottom:30px; } .x-small { font-size:60%; }
 #footer { text-align:center; height:4.5em; font-size:90%; margin-top:20px; } #footernav { padding:.2em; background:#f90; border-bottom:2px solid #ddd; } #footernav li { display:inline; padding:0 1em; border-left:1px solid #fff; } #footernav li.first { border-left:0; } #footernav li a { color:#fff; } #footer address { margin:1em; }
 body.visuals-disabled #visual3 { filter:none!important; border:0!important; box-shadow:none!important; } body.visuals-disabled #visual3::before,body.visuals-disabled #visual3::after { display:none!important; }
+@media (max-width:520px) { #visual3,#media-controls { width:100%; } #media-controls { padding:0 8px; } #visual3 { height:auto; aspect-ratio:480 / 380; } #visual3 embed { width:100%; height:100%; } }
 </style>
 </head>
 <body>
@@ -40,7 +42,8 @@ body.visuals-disabled #visual3 { filter:none!important; border:0!important; box-
 <div id="wrapper">
 <div id="header"><h1><a href="../mesopota_2010.html"><img src="../layout/logo.jpg" alt="迷走ポタージュ"></a></h1></div>
 <div id="headernav"><ul><li id="nav_info"><a href="../mesopota_2010.html#info">更新情報</a></li><li id="nav_product"><a href="../mesopota_2010.html#product">製品情報</a></li><li id="nav_member"><a href="../mesopota_2010.html#member">メンバー</a></li><li id="nav_about"><a href="../mesopota_2010.html#about">サイト説明</a></li><li id="nav_cheer"><a href="../mesopota_2010.html#cheer">応援中</a></li><li id="nav_link"><a href="../mesopota_2010.html#link">リンク</a></li></ul></div>
-<div id="visual3"><embed id="movie" src="swf/toho01_01_take.swf" quality="low" wmode="opaque" width="480" height="380" type="application/x-shockwave-flash"><div id="visual-nav"><button id="prev" type="button" aria-label="Previous animation"><img src="../layout/srt_prev.png" alt="Previous"></button><button id="next" type="button" aria-label="Next animation"><img src="../layout/srt_next.png" alt="Next"></button></div></div>
+<div id="visual3"><embed id="movie" src="swf/toho01_01_take.swf" quality="low" wmode="opaque" width="480" height="380" type="application/x-shockwave-flash"></div>
+<div id="media-controls" aria-label="Animation navigation"><button id="prev" type="button" aria-label="Previous animation"><img src="../layout/srt_prev.png" alt="Previous"></button><button id="next" type="button" aria-label="Next animation"><img src="../layout/srt_next.png" alt="Next"></button></div>
 <button id="visuals-toggle" aria-label="Toggle visual effects" title="Toggle VHS/CRT effects"><img src="../layout/str_visuals_button.png" alt="Toggle Visuals"></button>
 <div id="content"><div id="info" class="clearfix"><h2 id="movie-title">作品紹介ムービー <span class="x-small">Information Movie</span></h2><p id="movie-info">ジャンル：ミュージッククリップ<br>作者：takenoko<br>音楽：IOSYS 「アーティフィシャル・チルドレン」</p><script src="https://giscus.app/client.js" data-repo="IblisseAbstractArt/Meiso-potage-flash-collection" data-repo-id="R_kgDORp4pkQ" data-category="General" data-category-id="DIC_kwDORp4pkc4C5HRy" data-mapping="pathname" data-strict="0" data-reactions-enabled="0" data-emit-metadata="0" data-input-position="top" data-theme="noborder_light" data-lang="en" crossorigin="anonymous" async></script></div></div>
 </div>
