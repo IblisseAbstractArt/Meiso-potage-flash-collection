@@ -1,84 +1,1016 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>迷走ポタージュ - The Home of Touhou Flash Content</title>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+    <link rel="icon" type="image/png" href="icon64.png">
+    <style>
+        @charset "utf-8";
+        
+        h1, h2, h3, h4, h5, h6, p, ul, li, address, img, table, th, td, dl, dt, dd {
+            margin: 0;
+            padding: 0;
+            color: #333333;
+            list-style: none;
+            line-height: 1.25em;
+            font-family: "ＭＳ Ｐゴシック", Osaka, "ヒラギノ角ゴ Pro W3";
+            font-size:100%;
+            font-weight: normal;
+            font-style: normal;
+            text-decoration: none;
+            border: none;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background:url('layout/body.gif') top left repeat-x;
+        }
+        a {
+            color: #993300;
+        }
+        a:hover {
+            color: #FF3333;
+        }
+        hr {
+            border-width: 1px;
+            border-color: #CCCCCC;
+            margin-bottom: 20px;
+        }
+        
+        .leftfloating { float: left; }
+        .rightfloating { float: right; }
+        .rightalign { text-align: right; }
+        .center { text-align: center; }
+        .clear { clear: both; }
+        .banner img {
+            margin-right: 0.5em;
+            margin-bottom: 2px;
+        }
+        .banner a img { border:1px solid #CC6600; }
+        .banner a:hover img { border:1px solid #FF3333; }
+        .button {
+            padding: 0!important;
+            float: right;
+            font-size: 80%;
+        }
+        .button a {
+            display: block;
+            padding: 0.2em 1em!important;
+            text-decoration: none;
+            border: 1px solid #CC6600;
+            background: #FFFFFF;
+        }
+        .button a:hover { border-color: #FF3333; }
+        .small { font-size: 80%; }
+        .x-small { font-size: 60%; }
+        .large { font-size: 120%; }
+        .x-large { font-size: 150%; }
+        .red { color: #FF0000; }
+        .clearfix:after {
+          content: ".";
+          display: block;
+          clear: both;
+          height: 0;
+          visibility: hidden;
+        }
+        .clearfix { min-height: 1px; }
+        * html .clearfix {
+          height: 1px;
+          
+          height: auto;
+          overflow: hidden;
+          
+        }
+        
+        #wrapper {
+            margin: 0 auto;
+            width: 780px;
+            text-align: left;
+        }
+        
+        #header {
+            height: 70px;
+            background: url('layout/address.jpg') center right no-repeat;
+        }
+        #header h1 {
+            font-size: 150%;
+            font-weight: bold;
+        }
+        
+        #headernav { }
+        #headernav ul {
+            height: 50px;
+            background: url('layout/globalnav.gif') #FF9900;
+            background-position:0 -100px;
+        }
+        #headernav li {
+            float: left;
+            width: 130px;
+        }
+        #headernav li a {
+            line-height: 160%;
+            display: block;
+            color: #333333;
+            font-size: 120%;
+            font-weight: bold;
+            height: 50px;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            letter-spacing: 0.2em;
+            overflow: hidden;
+            text-indent:-9999px;
+            background: url('layout/globalnav.gif') #FF9900;
+        }
+        #headernav li a:hover { color: #FFFFFF; }
+        #nav_info a:link, #nav_info a:visited { background-position:0 0; }
+        #nav_product a:link, #nav_product a:visited { background-position:-130px 0; }
+        #nav_member a:link, #nav_member a:visited { background-position:-260px 0; }
+        #nav_about a:link, #nav_about a:visited { background-position:-390px 0; }
+        #nav_cheer a:link, #nav_cheer a:visited { background-position:-520px 0; }
+        #nav_link a:link, #nav_link a:visited { background-position:-650px 0; }
+        #nav_info a:hover { background-position:0 -50px; }
+        #nav_product a:hover { background-position:-130px -50px; }
+        #nav_member a:hover { background-position:-260px -50px; }
+        #nav_about a:hover { background-position:-390px -50px; }
+        #nav_cheer a:hover { background-position:-520px -50px; }
+        #nav_link a:hover { background-position:-650px -50px; }
+        /* ビジュアル */
+        #visual {
+            width: 780px;
+            height: 300px;
+            color:#FFFFFF;
+            margin-top: 20px;
+            margin-right: 0;
+            margin-bottom: 0px;
+            margin-left: 0;
+        }
+        
+        #content { clear: both; }
+        #content h2 {
+            margin: 0 0 0.5em 0;
+            padding: 0.2em 30px;
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 100%;
+            letter-spacing: 0.2em;
+            background: url('layout/h2.gif') center left no-repeat #FF9900;
+            border-bottom: 2px solid #DDDDDD;
+        }
+        #content p { padding: 0.5em; }
+        #content ul { padding: 0.5em; }
+        
+        #consignment,#info,#topic, #about, #member, #product, #cheer, #link { margin-bottom: 30px; }
+
+        
+        #info { margin-bottom: 30px; }
+        #info dt {
+            padding-left: 0.5em;
+            clear: left;
+            font-weight: bold;
+            float: left;
+            width: 6em;
+            border-bottom: 1px dashed #FF9900;
+        }
+        #info dd {
+            margin-left: 7em;
+            padding-left: 0.5em;
+            border-bottom: 1px dashed #FF9900;
+            margin-bottom: 0.25em;
+        }
+        
+        #consignment h3, #topic h3 { color: #993300; font-weight: bold; }
+        #topic ul { margin-left: 25px; }
+        #topic li { list-style: square; }
+        
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 10px;
+        }
+        .product-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            background: #FFFEDD;
+            border: 1px solid #FF9900;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .product-card-img {
+            border: 1px solid #CC6600;
+            padding: 3px;
+            background: #FFFFFF;
+            display: inline-block;
+            flex-shrink: 0;
+            line-height: 0;
+        }
+        .product-card-img img {
+            width: 110px;
+            height: auto;
+            display: block;
+        }
+        .product-card-info h3 {
+            margin: 0 0 5px 0 !important;
+            font-weight: bold !important;
+            color: #993300 !important;
+            font-size: 110% !important;
+            letter-spacing: normal !important;
+        }
+        .product-card-info p {
+            margin: 0;
+            padding: 0 !important;
+            font-size: 85%;
+            color: #666666;
+        }
+        
+        
+        #product { background: url('layout/product.gif') bottom right no-repeat; }
+        #member { background: url('layout/member.gif') bottom right no-repeat; }
+        #about { background: url('layout/about.gif') bottom right no-repeat; }
+        #about address { margin: 0 0.5em; }
+        #cheer { background: url('layout/cheer.gif') bottom right no-repeat; }
+        #link { background: url('layout/link.gif') bottom right no-repeat; }
+        
+        #loadingSplash {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000000;
+            z-index: 99999;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        #loadingSplash.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        #loadingSplash img {
+            display: block;
+            width: min(60vw, 420px);
+            max-width: 420px;
+            height: auto;
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+            filter: drop-shadow(0 0 18px rgba(255, 153, 0, 0.28));
+            cursor: pointer;
+        }
+        #loadingSplash.visible img {
+            opacity: 1;
+            transform: scale(1);
+        }
+        #loadingSplash.closing img {
+            opacity: 0;
+            transform: scale(1.04);
+        }
+        
+        #footer {
+            text-align: center;
+            height: 4.5em;
+            font-size:90%;
+        }
+        #footernav {
+            padding: 0.2em;
+            background: #FF9900;
+            border-bottom: 2px solid #DDDDDD;
+        }
+        #footernav li {
+            display: inline;
+            padding: 0 1em;
+            border-left: 1px solid #FFFFFF;
+        }
+        #footernav li.first { border-left: none; }
+        #footernav li a { color: #FFFFFF; }
+        #footernav li a:hover { color: #FF3333; }
+        #footer address { margin: 1em; }
+
+        
+        #visual2 {
+            margin: 20px 0;
+            padding: 0 60px;
+            width: 660px;
+            height: 480px;
+            color:#FFFFFF;
+        }
+        #visual3 {
+            margin: 20px 134px;
+            background: #000000;
+        }
+        #topic .horizon {
+            border-style: dashed;
+            border-color: #FF9900;
+            border-width: 0 0 1px;
+            margin-bottom: 1em;
+        }
+        .caution {
+            padding: 10px;
+            border: 3px solid #FC0;
+            background:#FFFEEE;
+        }
+        #welcomeWrap { position: fixed; right: 16px; bottom: 16px; z-index:9999; }
+        #welcomeImg { width: 176px; height: 250px; cursor: pointer; display:block; border-radius:6px; }
+        #welcomeWrap.sliding { animation: slide-out-right 600ms ease forwards; }
+        @keyframes slide-out-right { from { transform: translateX(0); opacity:1 } to { transform: translateX(120%); opacity:0 } }
+
+        @media (prefers-reduced-motion: no-preference) {
+        html {
+        scroll-behavior: smooth;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+        html {
+        scroll-behavior: auto;
+           }
+        }
+    </style>
+</head>
+<body>
+
+<div id="loadingSplash" class="visible" aria-live="polite" aria-busy="true">
+  <img src="layout/exlogo.jpg" alt="Mesopota splash image" />
+</div>
+
+<audio id="welcomeBgm" style="display: none;">
+  <source src="welcome_bgm.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+    
+<div id="wrapper">
+  <div id="header">
+    <h1><a href="mesopota_2010.html"><img src="layout/logo.jpg" alt="迷走ポタージュ"/></a></h1>
+  </div>
+  
+  <div id="headernav">
+    <ul>
+      <li id="nav_info"><a href="#info">更新情報</a></li>
+      <li id="nav_product"><a href="#product">製品情報</a></li>
+      <li id="nav_member"><a href="#member">メンバー</a></li>
+      <li id="nav_about"><a href="#about">サイト説明</a></li>
+      <li id="nav_cheer"><a href="#cheer">応援中</a></li>
+      <li id="nav_link"><a href="#link">リンク</a></li>
+    </ul>
+  </div>
+  
+  <div id="visual">
+    <object id="FlashID" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="780" height="300">
+      <param name="movie" value="splash.swf"/>
+      <param name="quality" value="high"/>
+      <param name="wmode" value="opaque"/>
+      <embed src="splash.swf" quality="low" wmode="opaque" width="780" height="300" type="application/x-shockwave-flash" />
+    </object>
+  </div>
+  
+  <div class="center" style="margin: 10px 0;"></div>
+  
+  <div id="content">
+    <div id="info" class="clearfix">
+      <h2>更新情報 <span class="x-small">Information</span></h2>
+      <dl>
+        <dt>2026/10/16</dt>
+        <dd>Im back...</dd>
+        <dt>2026/09/18</dt>
+        <dd>Added Navigation buttons in flash containers without leaving actual page.</dd>
+        <dt>2026/09/12</dt>
+        <dd>Added legacy menus in Eisyaroku and RoadShow.</dd>
+        <dt>2026/09/10</dt>
+        <dd>Banners "splash.swf" with buttons are now functional.</dd>
+        <dt>2026/09/09</dt>
+        <dd>Fixed list in flash expansion menu that was broken for Desktop users.</dd>
+        <dt>2026/08/30</dt>
+        <dd>Added another feature from the old site: Touhou flash expansion are back!</dd>
+        <dt>2026/08/29</dt>
+        <dd>The touhou vote event as concluded, the results are here. + A preview of a possible return of another feature from the old site.</dd>
+        <dt>2026/08/25</dt>
+        <dd>Added back comment system, now every Animation, Game, Flash Wallpaper, Bunka-cho and Crossfade can be commented</dd>
+        <dt>2026/08/21</dt>
+        <dd>The first advertisement regarding about the Touhou Vote event.</dd>
+        <dt>2026/08/16</dt>
+        <dd>Added the original bgm piano themes producted by Meisou Potage in C76, R7 and R8.</dd>
+        <dt>2026/08/14</dt>
+        <dd>Fixed footer in R5, C75, C76, R7, R8 and C87.</dd>
+        <dt>2026/08/09</dt>
+        <dd>Added two unused Bunka-Cho (Eisharoku, Roadshow) to R5 and C75.</dd>
+        <dt>2026/08/08</dt>
+        <dd>Added Gallery feature for CD image scans in the big events of Meisou Potage.</dd>
+        <dt>2026/08/07</dt>
+        <dd>Improved CD-R game descriptions according to the readme texts translated to english, renamed some games, added "Random Selection" in product list.</dd>
+        <dt>2026/08/02</dt>
+        <dd>Added hidden music tracks in certain banners in this menu...?</dd>
+        <dt>2026/07/26</dt>
+        <dd>Site is back online, new subdomain added...</dd>
+        <dt>2026/07/24</dt>
+        <dd>Replaced some .swf files to improved swf files to add more FPS in some flash games</dd>
+        <dt>2026/07/20</dt>
+        <dd>Fixed many bugs in R7, R8 and restored animations in C87 (confident i fixed all the bugs) - updated download links in Rumia mascot and Sakuya Clock</dd>
+        <dt>2026/07/18</dt>
+        <dd>Added background music in R5, C75, C76, R7, R8 and C87. Fixed some stuff that I've not noticed before.</dd>
+        <dt>2026/07/09</dt>
+        <dd>Added back Tetla pot's Flash Wallpapers along with some extra stuff in their respective events</dd>
+        <dt>2026/07/04</dt>
+        <dd>Added missing crossfades demo videos found from NicoNico Douga</dd>
+        <dt>2026/07/03</dt>
+        <dd>Ported retro visuals from old site with fixes and some necessary adaptations</dd>
+        <dt>2026/06/27</dt>
+        <dd>Added all 5 used crossfades from Reitaisai 5 to Comiket 77 - Added NicoNico Douga video embeds in Reitaisai 7 and Comiket 78</dd>
+        <dt>2026/06/26</dt>
+        <dd>Fixed many bugs in some menus (flash selector and flash player menu)</dd>
+        <dt>2026/06/22</dt>
+        <dd>Added Banners "Splash.swf" in all Product Sections</dd>
+        <dt>2026/06/19</dt>
+        <dd>All flash selector menus as been re-made using the style of Mesopota, Reitaisai 8 is back.</dd>
+        <dt>2026/06/18</dt>
+        <dd>Reitaisai 8 as been temporally disabled due to a "disastrous attempt" to recreate the OG menu</dd>
+        <dt>2026/06/16</dt>
+        <dd>added missing flash content from mesopota and updated all the flash containers menus</a></dd>
+        <dt>2026/06/08</dt>
+        <dd>changed site main menu style to Mesopota's OG menu design</a></dd>
+        <dt>2026/05/31</dt>
+        <dd>added all the tables of contents along with a new section: "Gensokyo Flashback!!"</a></dd>
+        <dt>2026/05/22</dt>
+        <dd>resuming with the task of adding the tables of contents in all sections</a></dd>
+        <dt>2026/04/11</dt>
+        <dd>added partially tables of contents with info about the event in some sections</a></dd>
+        <dt>2026/04/09</dt>
+        <dd>all events of Mesopota are open and ready to be used</a></dd>
+        <dt>2026/04/09</dt>
+        <dd>another 5 events finished! from Comiket 76 to Reitiaisai 8 for now...</a></dd>
+        <dt>2026/04/09</dt>
+        <dd>Comiket 76 product section as been finished!</a></dd>
+        <dt>2026/04/08</dt>
+        <dd>main site index is finished! the buttons "Product", "Member", "cheering", "about" and "link" are now functional!</a></dd>
+        <dt>2026/04/08</dt>
+        <dd>All mesopota events as been added as Placeholders! but are not adapted yet...</a></dd>
+        <dt>2026/04/07</dt>
+        <dd>Reitaisai 5 product section as been finished!</a></dd>
+        <dt>2026/04/07</dt>
+        <dd>secondary site launch</dd>
+      </dl>
+    </div>
+    
+    <div id="topic" class="clearfix">
+      <h2>お知らせ <span class="x-small">Topics</span></h2>
+      <h3 id="comiket81">Latest Log Information </h3>
+      <p>Rumia here with another log.<br>
+      <br>
+      As been a very silenty month for the development of Meisou Potage...<br>
+      Was a very necessary break because from my last log, i was too tired to continue developing more stuff for the site...
+      <br>
+      <del>Not mentioning i used 10gb of storaging old deployments that tomorrow i can go back to keep developing for the site</del>
+      <br>
+      But hey, the most important thing is <strong>Rumia is Back!.</strong></p>
+    <p class="button"><a href="#wrapper">▲ページトップ</a></p>
+    </div>
+    
+    <div id="product" class="clearfix">
+      <h2>製品情報 <span class="x-small">Product</span></h2>
+      
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-card-img">
+            <a href="Reitasai 5/index.html"><img src="covers/R5.jpg" alt="東方映写録"/></a>
+          </div>
+          <div class="product-card-info">
+            <h3>東方映写録</h3>
+            <p>Reitaisai 5 - 2008/05/25</p>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-img">
+            <a href="C75/index.html"><img src="covers/C75.jpg" alt="東方籠奴抄"/></a>
+          </div>
+          <div class="product-card-info">
+            <h3>東方籠奴抄</h3>
+            <p>Comiket 75 - 2008/12/29</p>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-img">
+            <a href="R6/index.html"><img src="covers/R6.jpg" alt="ビール味"/></a>
+          </div>
+          <div class="product-card-info">
+            <h3>ビール味</h3>
+            <p>Reitaisai 6 - 2009/03/07</p>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-img">
+            <a href="C76/index.html"><img src="covers/C76.jpg" alt="東方轟流殿"/></a>
+          </div>
+          <div class="product-card-info">
+            <h3>東方轟流殿</h3>
+            <p>Comiket 76 - 2009/08/15</p>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-img">
+            <a href="C77/index.html"><img src="covers/C77.jpg" alt="ワイン味"/></a>
+          </div>
+          <div class="product-card-info">
+            <h3>ワイン味</h3>
+            <p>Comiket 77 - 2009/12/30</p>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-img">
+            <a href="R7/index.html"><img src="covers/R7.jpg" alt="東方咲待夢"/></a>
+          </div>
+          <div class="product-card-info">
+            <h3>東方咲待夢</h3>
+            <p>Reitaisai 7 - 2010/03/14</p>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-img">
+            <a href="C78/index.html"><img src="covers/C78.jpg" alt="ラムネ味"/></a>
+          </div>
+          <div class="product-card-info">
+            <h3>ラムネ味</h3>
+            <p>Comiket 78 - 2010/08/14</p>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-img">
+            <a href="C79/index.html"><img src="covers/C79.jpg" alt="東方映写録"/></a>
+          </div>
+          <div class="product-card-info">
+            <h3>もち味</h3>
+            <p>Comiket 79 - 2010/12/30</p>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-img">
+            <a href="R8/index.html"><img src="covers/R8.jpg" alt="東方宴酒塚"/></a>
+          </div>
+          <div class="product-card-info">
+            <h3>東方宴酒塚</h3>
+            <p>Reitaisai 8 - 2011/03/13</p>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-img">
+            <a href="C80/index.html"><img src="covers/C80.jpg" alt="コーラ味"/></a>
+          </div>
+          <div class="product-card-info">
+            <h3>コーラ味</h3>
+            <p>Comiket 80 - 2011/08/13</p>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-img">
+            <a href="C81/index.html"><img src="covers/C81.jpg" alt="カレー味"/></a>
+          </div>
+          <div class="product-card-info">
+            <h3>カレー味</h3>
+            <p>Comiket 81 - 2011/12/30</p>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-img">
+            <a href="R9/index.html"><img src="covers/R9.jpg" alt="紅白饅頭味"/></a>
+          </div>
+          <div class="product-card-info">
+            <h3>紅白饅頭味</h3>
+            <p>Reitaisai 9 - 2012/05/27</p>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-img">
+            <a href="C82/index.html"><img src="covers/C82.jpg" alt="なべしき"/></a>
+          </div>
+          <div class="product-card-info">
+            <h3>なべしき</h3>
+            <p>Comiket 82 - 2012/08/16</p>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-img">
+            <a href="C83/index.html"><img src="covers/C83.jpg" alt="みかん"/></a>
+          </div>
+          <div class="product-card-info">
+            <h3>みかん</h3>
+            <p>Comiket 83 - 2012/12/30</p>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-img">
+            <a href="R10/index.html"><img src="covers/R10.jpg" alt="メロン"/></a>
+          </div>
+          <div class="product-card-info">
+            <h3>メロン</h3>
+            <p>Reitaisai 10 - 2013/05/26</p>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-img">
+            <a href="R11/index.html"><img src="covers/R11.jpg" alt="味噌味"/></a>
+          </div>
+          <div class="product-card-info">
+            <h3>味噌味</h3>
+            <p>Reitaisai 11 - 2014/05/11</p>
+          </div>
+        </div>
+          
+        <div class="product-card">
+          <div class="product-card-img">
+            <a href="C87/index.html"><img src="covers/C87.jpg" alt="幻想郷フラッシュバック!!"/></a>
+          </div>
+          <div class="product-card-info">
+            <h3>幻想郷フラッシュバック!!</h3>
+            <p>Comiket 87 - 2014/12/29</p>
+          </div>
+        </div>
+          
+            <div class="product-card random-card">
+             <div class="product-card-img">
+           <a href="#" id="randomCard"><img src="covers/Random.jpg" alt="Random Selection"/></a>
+          </div>
+          <div class="product-card-info">
+            <h3>Random Selection</h3>
+            <p>try your luck going to a random CD-R / Reitaisai event!</p>
+           </div>
+         </div>
+      </div>
+
+      <p class="button"><a href="#wrapper">▲ページトップ</a></p>
+    </div>
+
+    <div id="product" class="clearfix">
+      <h2>拡大 <span class="x-small">Expansion</span></h2>
+
+        <div class="product-grid">
+        <div class="product-card">
+          <div class="product-card-img">
+            <a href="extra/index.html"><img src="covers/expansion.jpg" alt="Expansion"/></a>
+          </div>
+          <div class="product-card-info">
+            <h3>Touhou Flash Expansion</h3>
+            <p>Explore around 82 extra animations related to Touhou Project!</p>
+          </div>
+        </div>
+      </div>
+      
+        <p class="button"><a href="#wrapper">▲ページトップ</a></p>
+        </div>
+        
+    <div id="member" class="clearfix">
+      <h2>メンバー <span class="x-small">Member</span></h2>
+      <ul class="banner">
+        <li><img src="banner/clairvoyance.jpg" alt="み～や"/> み～や</li>
+        <li><img src="banner/tetlapot.gif" alt="宇田てとら"/> 宇田てとら</li>
+        <li><img src="banner/lrp.gif" alt="カギ"/> カギ</li>
+        <li><img src="banner/hikibiyori.gif" alt="as@地生（ひきこもり日和）"/>as@地生（ひきこもり日和）</li>
+        <li><img src="banner/chibitami.gif" alt="yu-ki"/> yu-ki</li>
+        <li><img src="banner/rumia.jpg" alt="Average Rumia"/> Average Rumia</li>
+        <li><img src="banner/dividice.jpg" alt="kouks (Dividice)"/> kouks (Dividice)</li>
+        <li><img src="banner/shobofla.gif" alt="ing_k (shobofla.net)"/>ing_k (shobofla.net)</li>
+        <li><img src="banner/nobanner.gif" alt="Kenshiro Morii (KenshiroMorii.tv)"/>Kenshiro Morii (KenshiroMorii.tv)</li>
+        <li><img src="banner/toxic.png" alt="takenoko（Toxic Landfill"/> takenoko（Toxic Landfill)</li>
+        <li><img src="banner/niji.jpg" alt="niji（にじおき）"/> niji（にじおき）</li>
+        <li><img src="banner/happyflametime.gif" alt="春夏アキト（happy flame time）"/> 春夏アキト（happy flame time）</li>
+        <li><img src="banner/nobanner.gif" alt="takenoko（takenoko）"/>takenoko（takenoko）</li>
+        <li><img src="banner/mkn2.jpg" alt="春原ロビンソン（MKN2）"/> 春原ロビンソン（MKN2）</li>
+        <li><img src="banner/mattari.gif" alt="yama_ko（Mattari Factory）"/> yama_ko（Mattari Factory）</li>
+        <li><img src="banner/nobanner.gif" alt="as@earth"/>as@earth</li>
+        <li><img src="banner/snowy.png" alt="冬もぐら（snowy place）"/>冬もぐら（snowy place）</li>
+        <li><img src="banner/kaleidoscope.png" alt="I.C.yas（+Kaleidoscope+）"/>I.C.yas（+Kaleidoscope+）</li>
+        <li><img src="banner/tatsuhanedou.png" alt="大羽龍一（龍翅堂）"/>大羽龍一（龍翅堂）</li>
+        <li><img src="banner/yama_ko.gif" alt="yama_ko（yama-ko.net）"/>yama_ko（yama-ko.net）</li>
+        <li><img src="banner/nobanner.gif" alt="as@地生（Chisey）"/>as@地生（Chisey）</li>
+    <p class="button"><a href="#wrapper">▲ページトップ</a></p>
+    </div>
+    
+    <div id="about" class="clearfix">
+      <h2>サイト説明 <span class="x-small">About</span></h2>
+      <p>this is a collection of adobe flash (games and animations) From Meiso potage (alias Mesopota) and this site is for preserving flash content of Touhou Project.
+Why? because this project is meant to revive those old flash content that people might not know those animations/games existed.
+this project was born by one day i was bored... and when i took a look to the mesopota flash files, i've got interested in them... so i thought "why not bring those back functional using ruffle?" and [...]
+the goal of the project is to make those old flash contents return to life working back using ruffle in my own website i did, inspirated in the site of mesopota (2010). this proyect started in a local[...]
+this is my first proyect of all time, so dont expect more from me (im novice in this world of coding)</p>
+      <p class="button"><a href="#wrapper">▲ページトップ</a></p>
+    </div>
+
+    <div id="cheer" class="clearfix">
+      <h2>応援中 <span class="x-small">Cheering</span></h2>
+      <p style="margin-bottom: 5px;"><a href="https://files.catbox.moe/z5wzm5.flac"><img src="banner/iosys_nengaranenjuu.png" alt="東方年柄年中"/></a></p>
+      <p style="margin-bottom: 5px;"><a href="#"><img src="banner/alba_starcracker.jpeg" alt="STAR CRACKER"/></a></p>
+      <p style="margin-bottom: 5px;"><a href="https://files.catbox.moe/tqp5tk.flac"><img src="banner/redalice_colors.jpeg" alt="COLORS"/></a></p>
+      <p style="margin-bottom: 5px;"><a href="https://files.catbox.moe/qs04a2.flac"><img src="banner/syncarts_requiem.jpeg" alt="REQUIEM"/></a></p>
+      <p style="margin-bottom: 5px;"><a href="https://files.catbox.moe/wr9puh.flac"><img src="banner/sekkenya_lv20.gif" alt="Touhou lv20"/</a></p>
+      <p style="margin-bottom: 5px;"><a href="https://files.catbox.moe/1awam8.flac"><img src="banner/soundholic_kuni.jpeg" alt="地 KUNI"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="https://files.catbox.moe/ru5os2.flac"><img src="banner/dbu_fn2009.png" alt="FLOWERING NIGHT 2009"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="https://files.catbox.moe/5t5skz.flac"><img src="banner/ban2.jpg" alt="Kardia"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="https://files.catbox.moe/3wao6z.flac"><img src="banner/hachiremo.jpg" alt="はちみつれもん「Light in Color」"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="https://files.catbox.moe/555zuo.flac"><img src="banner/forestpireo.jpg" alt="ふぉれすとぴれお「Memory Box」"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="https://files.catbox.moe/whoexn.flac"><img src="banner/boxel.png" alt="BOXELL「恋々幻想郷」"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="https://files.catbox.moe/qcy6ol.flac"><img src="banner/shuttergirl.jpg" alt="Super Shutter Girl"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="https://files.catbox.moe/g4tqf4.flac"><img src="banner/fn08.jpg" alt="Flowering Night 2008"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="https://files.catbox.moe/oegkyo.flac"><img src="banner/makasinsai.gif" alt="Touhou Shinkajin Festival"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="https://files.catbox.moe/68wi3x.flac"><img src="banner/gossun.jpg" alt="Gossun Remix"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="https://files.catbox.moe/66ztm0.flac"><img src="banner/yuugensou.jpg" alt="Touhou Yugenso"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="#"><img src="banner/coolandsekken.jpg" alt="Soap Shop COOLANDCREATE Sekkenya"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="https://files.catbox.moe/imwohv.flac"><img src="banner/demon.jpg" alt="Demon Tale Sonata"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="https://files.catbox.moe/yrqpkw.flac"><img src="banner/bubble.png" alt="Eastern Bubbling Underground"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="https://files.catbox.moe/w6iqgo.flac"><img src="banner/paradigm.jpg" alt="Eternal Paradigm"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="https://files.catbox.moe/5mecwn.flac"><img src="banner/kurenai.jpg" alt="KURENAI"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="https://files.catbox.moe/kpot4u.flac"><img src="banner/swing03.jpg" alt="VOL.03 / SWING HOLIC"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="https://files.catbox.moe/39wl2q.flac"><img src="banner/iosys_crystallizedocean.png" alt="Eastern Crystalized Ocean"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="https://files.catbox.moe/sakjxa.flac"><img src="banner/cc_drizzlyagain.jpg" alt="Drizzly Again"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="https://files.catbox.moe/bmtkge.flac"><img src="banner/sekken_killer.jpg" alt="Bib No. 2 Killer Decoration"/></a></p>
+      <p style="margin-bottom: 10px;"><a href="https://files.catbox.moe/ihi3lh.flac"><img src="banner/forestpireo_spring.jpg" alt="SPRING★"/></a></p>
+    <p class="button"><a href="#wrapper">▲ページトップ</a></p>
+    </div>
+
+    <div id="link" class="clearfix">
+      <h2>リンク <span class="x-small">Link</span></h2>
+      <ul class="banner">
+        <li><a href="http://www16.big.or.jp/~zun/"><img src="banner/shanghai.gif" alt="上海アリス幻樂団"/></a> <a href="http://www16.big.or.jp/~zun/">上海アリス幻樂団</a></li>
+        <li>
+          <a href="http://www.reitaisai.com/"><img src="banner/reitaisai.jpeg" alt="博麗神社例大祭"/></a> <a href="http://www.reitsaiai.com/">博麗神社例大祭</a><br/>
+          <a href="http://www.comiket.co.jp/" class="small">コミックマーケット</a>
+        </li>
+        <li><a href="https://web.archive.org/web/20150106093920/http://redalice.hmc6.net/" class="small">ALICE'S EMOTION</a></li>
+        <li><a href="http://www.cool-create.cc/"><img src="banner/coolandcreate.gif" alt="COOLandCREATE"/></a> <a href="http://www.cool-create.cc/">COOL&CREATE</a></li>
+        <li><a href="http://www.dobuusagi.com/"><img src="banner/dbu.gif" alt="dBu music"/></a> <a href="http://www.dobuusagi.com/">dBu music</a></li>
+        <li><a href="https://web.archive.org/web/20150106093920/http://www.geocities.jp/eternal_notes/"><img src="banner/eternalnotes.jpeg" alt="Eternal Notes"/></a> <a href="https://web.archive.org/web/20150106093920/http://www.geocities.jp/eternal_notes/">Eternal Notes</a></li>
+        <li><a href="http://www.iosysos.com/"><img src="banner/iosys.gif" alt="IOSYS"/></a> <a href="http://www.iosysos.com/">IOSYS</a></li>
+        <li><a href="http://www.ameblo.jp/pfaudio/" class="small">-PF AUDIO-</a></li>
+        <li><a href="https://web.archive.org/web/20150106093920/http://music.geocities.jp/silverf0rest/"><img src="banner/silverforest.jpeg" alt="Silver Forest"/></a> <a href="https://web.archive.org/web/20150106093920/http://music.geocities.jp/silverf0rest/">Silver Forest</a></li>
+        <li><a href="http://www.sound-holic.com/"><img src="banner/soundholic.jpeg" alt="SOUND HOLIC"/></a> <a href="http://www.sound-holic.com/">SOUND HOLIC</a></li>
+        <li><a href="http://syncarts.jp/"><img src="banner/syncarts.gif" alt="SYNC. ART'S"/></a> <a href="http://syncarts.jp/">SYNC. ART'S</a></li>
+        <li>
+          <a href="http://www.sekken.sakura.ne.jp/" class="small">石鹸屋</a><br/>
+          <a href="http://www.soundonline.info/" class="small">Sound Online</a><br/>
+          <a href="https://web.archive.org/web/20150106093920/http://forestpireo.jp/" class="small">ふぉれすとぴれお</a><br/>
+          <a href="http://www.butaotome.com/" class="small">豚乙女</a>
+        </li>
+        <li><a href="https://web.archive.org/web/20150106093920/http://www3.to/popkorn/"><img src="banner/popkorn.jpeg" alt="PopKorn"/></a> <a href="https://web.archive.org/web/20150106093920/http://www3.to/popkorn/">PopKorn</a></li>
+        <li><a href="https://web.archive.org/web/20150106093920/http://sleipnir-soft.com/" class="small">スレイプニル</a></li>
+        <li><a href="https://web.archive.org/web/20150106093920/http://happyft.sakura.ne.jp/"><img src="banner/happyflametime.gif" alt="happy flame time"/></a> <a href="https://web.archive.org/web/20150106093920/http://happyft.sakura.ne.jp/">happy flame time</a></li>
+        <li><a href="https://web.archive.org/web/20150106093920/http://hiaruron.net/"><img src="banner/hiaruron.jpeg" alt="ひあるろん"/></a> <a href="https://web.archive.org/web/20150106093920/http://hiaruron.net/">ひあるろん</a></li>
+        <li><a href="http://www.moe-cd.com/"><img src="banner/moecdpress.gif" alt="もえCDプレス"/></a> <a href="http://www.moe-cd.com/">もえCDプレス</a></li>
+      </ul>
+      <p class="button"><a href="#wrapper">▲ページトップ</a></p>
+    </div>
+
+  </div> </div> <div id="footer" class="clear">
+  <div id="footernav">
+    <ul>
+      <li class="first"><a href="#info">更新情報</a></li>
+      <li><a href="#product">製品情報</a></li>
+      <li><a href="#member">メンバー</a></li>
+      <li><a href="#about">サイト説明</a></li>
+      <li><a href="#cheer">応援中</a></li>
+      <li><a href="#link">リンク</a></li>
+      <li><a href="https://discord.gg/b2SScXgqhb">Discord</a></li>
+    </ul>
+  </div>
+  <address>Copyright &copy; 2026 迷走ポタージュ / Average Rumia. No rights reserved.</address>
+</div>
 <script>
-(function () {
+  (function() {
+  const PLAY_DURATION_MS = 51000;
+  const spriteStandby = 'standby.png';
+  const spritePlaying = 'playing.png';
+  const welcomeAudio = document.getElementById('welcomeBgm');
+
+  function createImg() {
+    const wrap = document.createElement('div'); wrap.id='welcomeWrap';
+    const img = document.createElement('img'); img.id='welcomeImg';
+    img.src = spriteStandby;
+    img.alt = 'Play welcome music';
+    wrap.appendChild(img);
+    document.body.appendChild(wrap);
+    return {wrap, img};
+  }
+function shouldPlay() {
+  const lastPlayTime = localStorage.getItem('welcomeBgmLastPlay');
+  if (!lastPlayTime) return true;
+  
+  const timeSinceLastPlay = Date.now() - parseInt(lastPlayTime);
+}
+
+function safeSet(value) {
+  localStorage.setItem('welcomeBgmLastPlay', value);
+}
+  window.addEventListener('load', () => {
+    if (!welcomeAudio) return;
+    if (!shouldPlay()) return; 
+
+    const {wrap, img} = createImg();
+
+    function start() {
+      welcomeAudio.currentTime = 0;
+      welcomeAudio.play().then(() => {
+        img.src = spritePlaying;
+        safeSet(String(Date.now()));
+        setTimeout(() => { wrap.classList.add('sliding'); }, PLAY_DURATION_MS);
+      }).catch(err => { console.warn(err); });
+    }
+
+    img.addEventListener('click', start);
+
+    
+    welcomeAudio.play().then(() => { img.src = spritePlaying; safeSet(String(Date.now())); setTimeout(()=>wrap.classList.add('sliding'), PLAY_DURATION_MS); }).catch(()=>{/* leave img clickable */});
+  });
+})();
+
+    
+document.addEventListener('DOMContentLoaded', () => {
+  
+  let bgAudio = document.getElementById('bgAudio');
+  if (!bgAudio) {
+    bgAudio = document.createElement('audio');
+    bgAudio.id = 'bgAudio';
+    bgAudio.style.display = 'none';
+    
+    document.body.appendChild(bgAudio);
+  }
+
+
+  const links = Array.from(document.querySelectorAll('#cheer a'))
+    .filter(a => {
+      const href = a.getAttribute('href') || '';
+      const data = a.dataset.audio || '';
+      return href.endsWith('.flac') || data.endsWith('.flac');
+    });
+
+  links.forEach(a => {
+    a.addEventListener('click', (e) => {
+      
+      if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+
+      e.preventDefault();
+
+      const url = a.dataset.audio || a.getAttribute('href');
+      if (!url) return;
+
+      
+      if (bgAudio.src && bgAudio.src === new URL(url, location.href).href) {
+        if (bgAudio.paused) {
+          bgAudio.play().catch(err => console.warn('Playback failed:', err));
+          a.classList.add('playing');
+        } else {
+          bgAudio.pause();
+          a.classList.remove('playing');
+        }
+        return;
+      }
+
+      bgAudio.pause();
+      bgAudio.src = url;
+      bgAudio.currentTime = 0;
+      bgAudio.volume = 0.9;
+      bgAudio.loop = false;
+      bgAudio.play().then(() => {
+    
+        links.forEach(l => l.classList.remove('playing'));
+        a.classList.add('playing');
+      }).catch(err => {
+    
+        console.warn('Playback failed:', err);
+      });
+    });
+  });
+
+  bgAudio.addEventListener('ended', () => {
+    links.forEach(l => l.classList.remove('playing'));
+  });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
   const splash = document.getElementById('loadingSplash');
   const splashImg = splash ? splash.querySelector('img') : null;
-  if (!splash || !splashImg) return;
-
   const defaultLogo = 'layout/exlogo.jpg';
   const splashFolder = 'splashs/';
-  const randomSplashPool = [
-    splashFolder + '1790207529947.png',
-    splashFolder + '1790207555241.png',
-    splashFolder + '1790207624334.png',
-    splashFolder + '1790207651824.png',
-    splashFolder + '1790207674429.png',
-    splashFolder + '1790207718935.png',
-    splashFolder + '1790207776163.png',
-    splashFolder + '1790207792513.png',
-    splashFolder + '1792444692627.png',
-    splashFolder + 'machina.png',
-    defaultLogo
-  ];
-
-  const key = 'mesopota_splash_last_shown';
-  const oneDay = 24 * 60 * 60 * 1000;
+const randomSplashPool = [
+  splashFolder + '1790207529947.png',
+  splashFolder + '1790207555241.png',
+  splashFolder + '1790207624334.png',
+  splashFolder + '1790207651824.png',
+  splashFolder + '1790207674429.png',
+  splashFolder + '1790207718935.png',
+  splashFolder + '1790207776163.png',
+  splashFolder + '1790207792513.png',
+  splashFolder + '1792444692627.png',
+  splashFolder + 'machina.png',
+  'layout/exlogo.jpg'
+];
 
   function pickRandomSplash() {
     const valid = randomSplashPool.filter(src => src && src.trim());
     return valid[Math.floor(Math.random() * valid.length)] || defaultLogo;
   }
 
-  function canShowSplash() {
-    const lastShown = Number(localStorage.getItem(key) || 0);
-    return !lastShown || (Date.now() - lastShown) >= oneDay;
-  }
-
-  function setLastShown() {
-    localStorage.setItem(key, String(Date.now()));
-  }
-
-  function showLogo() {
-    splash.classList.remove('hidden', 'closing');
-    splash.classList.add('visible');
-    splashImg.src = defaultLogo;
-    splashImg.alt = 'Mesopota logo';
-  }
-
   function showSplash(src) {
+    if (!splash || !splashImg) return;
     splash.classList.remove('hidden', 'closing');
     splash.classList.add('visible');
     splashImg.src = src;
     splashImg.alt = 'Mesopota splash image';
   }
 
-  function hideSplash() {
+  function transitionToLogo() {
+    if (!splash || !splashImg) return;
     splash.classList.remove('visible');
     splash.classList.add('closing');
-
     setTimeout(() => {
       splashImg.src = defaultLogo;
       splashImg.alt = 'Mesopota logo';
       splash.classList.remove('closing');
-      setTimeout(() => splash.classList.add('hidden'), 350);
+      setTimeout(() => {
+        splash.classList.add('hidden');
+      }, 350);
     }, 420);
   }
 
-  function triggerInteraction() {
-    if (!canShowSplash()) {
-      hideSplash();
+  if (splash && splashImg) {
+    const firstSplash = pickRandomSplash();
+    splashImg.src = firstSplash;
+    splashImg.alt = 'Mesopota splash image';
+
+    splashImg.onload = () => {
+      requestAnimationFrame(() => {
+        splash.classList.add('visible');
+      });
+    };
+
+    splashImg.onerror = () => {
+      splashImg.src = defaultLogo;
+      requestAnimationFrame(() => splash.classList.add('visible'));
+    };
+
+    splash.addEventListener('click', () => {
+      transitionToLogo();
+    }, { once: true });
+
+    const startSequence = () => {
+      setTimeout(() => {
+        transitionToLogo();
+      }, 900);
+    };
+
+    if (document.readyState === 'complete') {
+      startSequence();
+    } else {
+      window.addEventListener('load', startSequence, { once: true });
+    }
+  }
+});
+</script>
+
+    <script>
+  (function () {
+    const splash = document.getElementById('splash');
+    const key = 'mesopota_splash_last_shown';
+    const now = Date.now();
+    const oneDay = 24 * 60 * 60 * 1000;
+
+    const lastShown = Number(localStorage.getItem(key) || 0);
+
+    if (lastShown && (now - lastShown) < oneDay) {
+      splash.style.display = 'none';
       return;
     }
 
-    setLastShown();
-    showSplash(pickRandomSplash());
+    localStorage.setItem(key, String(now));
 
     setTimeout(() => {
-      hideSplash();
-    }, 900);
-  }
+      splash.classList.add('fade-out');
+    }, 1200);
 
-  splash.addEventListener('click', triggerInteraction, { once: true });
+    setTimeout(() => {
+      splash.style.display = 'none';
+    }, 1800);
+  })();
+    </script>
 
-  showLogo();
-})();
-</script>
+</body>
+</html>
