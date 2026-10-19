@@ -232,8 +232,6 @@
         
         
         #product { background: url('layout/product.gif') bottom right no-repeat; }
-        
-        
         #member { background: url('layout/member.gif') bottom right no-repeat; }
         #about { background: url('layout/about.gif') bottom right no-repeat; }
         #about address { margin: 0 0.5em; }
@@ -911,13 +909,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const splash = document.getElementById('loadingSplash');
   const splashImg = splash ? splash.querySelector('img') : null;
   const defaultLogo = 'layout/exlogo.jpg';
-  const placeholderFolder = 'layout/loading/';
-  const randomSplashPool = [
-    placeholderFolder + 'mesopota-01.jpg',
-    placeholderFolder + 'touhou-01.jpg',
-    placeholderFolder + 'retro-flash-01.jpg',
-    defaultLogo
-  ];
+  const splashFolder = 'splashs/';
+const randomSplashPool = [
+  splashFolder + '1790207529947.png',
+  splashFolder + '1790207555241.png',
+  splashFolder + '1790207624334.png',
+  splashFolder + '1790207651824.png',
+  splashFolder + '1790207674429.png',
+  splashFolder + '1790207718935.png',
+  splashFolder + '1790207776163.png',
+  splashFolder + '1790207792513.png',
+  splashFolder + 'your-image-01.jpg',
+  splashFolder + 'your-image-02.jpg',
+  'layout/exlogo.jpg'
+];
 
   function pickRandomSplash() {
     const valid = randomSplashPool.filter(src => src && src.trim());
@@ -981,6 +986,32 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+    <script>
+  (function () {
+    const splash = document.getElementById('splash');
+    const key = 'mesopota_splash_last_shown';
+    const now = Date.now();
+    const oneDay = 24 * 60 * 60 * 1000;
+
+    const lastShown = Number(localStorage.getItem(key) || 0);
+
+    if (lastShown && (now - lastShown) < oneDay) {
+      splash.style.display = 'none';
+      return;
+    }
+
+    localStorage.setItem(key, String(now));
+
+    setTimeout(function () {
+      splash.classList.add('fade-out');
+    }, 1200);
+
+    setTimeout(function () {
+      splash.style.display = 'none';
+    }, 1800);
+  })();
+    </script>
+    
     <script>
 document.addEventListener('DOMContentLoaded', () => {
   const randomAnchor = document.getElementById('randomCard');
