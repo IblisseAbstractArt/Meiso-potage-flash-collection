@@ -991,7 +991,7 @@ const randomSplashPool = [
     const splash = document.getElementById('splash');
     const key = 'mesopota_splash_last_shown';
     const now = Date.now();
-    const oneDay = 24 * 60 * 60 * 1000;
+    const oneDay = 12 * 60 * 60 * 1000;
 
     const lastShown = Number(localStorage.getItem(key) || 0);
 
@@ -1000,7 +1000,7 @@ const randomSplashPool = [
       return;
     }
 
-    localStorage.setItem(key, String(now));
+    localStorage.removeItem('mesopota_splash_last_shown');
 
     setTimeout(() => {
       splash.classList.add('fade-out');
