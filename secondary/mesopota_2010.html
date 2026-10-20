@@ -248,7 +248,7 @@
             z-index: 99999;
             opacity: 1;
             visibility: visible;
-            transition: opacity 0.6s ease, visibility 4.4s ease;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
         }
         #loadingSplash.hidden {
             opacity: 0;
@@ -986,25 +986,31 @@ const randomSplashPool = [
 });
 </script>
 
-<script>
+    <script>
   (function () {
-    const splash = document.getElementById('loadingSplash');
-    if (!splash) return;
-
+    const splash = document.getElementById('splash');
     const key = 'mesopota_splash_last_shown';
-    const HOURS = 12;
-    const cooldownMs = HOURS * 60 * 60 * 1000;
     const now = Date.now();
+    const oneDay = 24 * 60 * 60 * 1000;
+
     const lastShown = Number(localStorage.getItem(key) || 0);
 
-    if (lastShown && (now - lastShown) < cooldownMs) {
-      splash.classList.add('hidden');
+    if (lastShown && (now - lastShown) < oneDay) {
+      splash.style.display = 'none';
       return;
     }
 
     localStorage.setItem(key, String(now));
+
+    setTimeout(() => {
+      splash.classList.add('fade-out');
+    }, 1200);
+
+    setTimeout(() => {
+      splash.style.display = 'none';
+    }, 1800);
   })();
-</script>
+    </script>
 
 </body>
 </html>
