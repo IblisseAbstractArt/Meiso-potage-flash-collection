@@ -232,48 +232,14 @@
         
         
         #product { background: url('layout/product.gif') bottom right no-repeat; }
+        
+        
         #member { background: url('layout/member.gif') bottom right no-repeat; }
         #about { background: url('layout/about.gif') bottom right no-repeat; }
         #about address { margin: 0 0.5em; }
         #cheer { background: url('layout/cheer.gif') bottom right no-repeat; }
         #link { background: url('layout/link.gif') bottom right no-repeat; }
         
-        #loadingSplash {
-            position: fixed;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #000000;
-            z-index: 99999;
-            opacity: 1;
-            visibility: visible;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
-        }
-        #loadingSplash.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-        #loadingSplash img {
-            display: block;
-            width: min(60vw, 420px);
-            max-width: 420px;
-            height: auto;
-            opacity: 0;
-            transform: scale(0.92);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-            filter: drop-shadow(0 0 18px rgba(255, 153, 0, 0.28));
-            cursor: pointer;
-        }
-        #loadingSplash.visible img {
-            opacity: 1;
-            transform: scale(1);
-        }
-        #loadingSplash.closing img {
-            opacity: 0;
-            transform: scale(1.04);
-        }
         
         #footer {
             text-align: center;
@@ -336,10 +302,6 @@
     </style>
 </head>
 <body>
-
-<div id="loadingSplash" class="visible" aria-live="polite" aria-busy="true">
-  <img src="layout/exlogo.jpg" alt="Mesopota splash image" />
-</div>
 
 <audio id="welcomeBgm" style="display: none;">
   <source src="welcome_bgm.mp3" type="audio/mpeg">
@@ -709,8 +671,8 @@
       <h2>サイト説明 <span class="x-small">About</span></h2>
       <p>this is a collection of adobe flash (games and animations) From Meiso potage (alias Mesopota) and this site is for preserving flash content of Touhou Project.
 Why? because this project is meant to revive those old flash content that people might not know those animations/games existed.
-this project was born by one day i was bored... and when i took a look to the mesopota flash files, i've got interested in them... so i thought "why not bring those back functional using ruffle?" and [...]
-the goal of the project is to make those old flash contents return to life working back using ruffle in my own website i did, inspirated in the site of mesopota (2010). this proyect started in a local[...]
+this project was born by one day i was bored... and when i took a look to the mesopota flash files, i've got interested in them... so i thought "why not bring those back functional using ruffle?" and thats how this small proyect was born.
+the goal of the project is to make those old flash contents return to life working back using ruffle in my own website i did, inspirated in the site of mesopota (2010). this proyect started in a local private server, but I've wanted to share it with the world.
 this is my first proyect of all time, so dont expect more from me (im novice in this world of coding)</p>
       <p class="button"><a href="#wrapper">▲ページトップ</a></p>
     </div>
@@ -904,113 +866,30 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const splash = document.getElementById('loadingSplash');
-  const splashImg = splash ? splash.querySelector('img') : null;
-  const defaultLogo = 'layout/exlogo.jpg';
-  const splashFolder = 'splashs/';
-const randomSplashPool = [
-  splashFolder + '1790207529947.png',
-  splashFolder + '1790207555241.png',
-  splashFolder + '1790207624334.png',
-  splashFolder + '1790207651824.png',
-  splashFolder + '1790207674429.png',
-  splashFolder + '1790207718935.png',
-  splashFolder + '1790207776163.png',
-  splashFolder + '1790207792513.png',
-  splashFolder + '1792444692627.png',
-  splashFolder + '1792457289771.png',
-  'layout/exlogo.jpg'
-];
-
-  function pickRandomSplash() {
-    const valid = randomSplashPool.filter(src => src && src.trim());
-    return valid[Math.floor(Math.random() * valid.length)] || defaultLogo;
-  }
-
-  function showSplash(src) {
-    if (!splash || !splashImg) return;
-    splash.classList.remove('hidden', 'closing');
-    splash.classList.add('visible');
-    splashImg.src = src;
-    splashImg.alt = 'Mesopota splash image';
-  }
-
-  function transitionToLogo() {
-    if (!splash || !splashImg) return;
-    splash.classList.remove('visible');
-    splash.classList.add('closing');
-    setTimeout(() => {
-      splashImg.src = defaultLogo;
-      splashImg.alt = 'Mesopota logo';
-      splash.classList.remove('closing');
-      setTimeout(() => {
-        splash.classList.add('hidden');
-      }, 350);
-    }, 420);
-  }
-
-  if (splash && splashImg) {
-    const firstSplash = pickRandomSplash();
-    splashImg.src = firstSplash;
-    splashImg.alt = 'Mesopota splash image';
-
-    splashImg.onload = () => {
-      requestAnimationFrame(() => {
-        splash.classList.add('visible');
-      });
-    };
-
-    splashImg.onerror = () => {
-      splashImg.src = defaultLogo;
-      requestAnimationFrame(() => splash.classList.add('visible'));
-    };
-
-    splash.addEventListener('click', () => {
-      transitionToLogo();
-    }, { once: true });
-
-    const startSequence = () => {
-      setTimeout(() => {
-        transitionToLogo();
-      }, 900);
-    };
-
-    if (document.readyState === 'complete') {
-      startSequence();
-    } else {
-      window.addEventListener('load', startSequence, { once: true });
-    }
-  }
-});
-</script>
-
     <script>
-  (function () {
-    const splash = document.getElementById('splash');
-    const key = 'mesopota_splash_last_shown';
-    const now = Date.now();
-    const oneDay = 12 * 60 * 60 * 1000;
+document.addEventListener('DOMContentLoaded', () => {
+  const randomAnchor = document.getElementById('randomCard');
+  if (!randomAnchor) return;
 
-    const lastShown = Number(localStorage.getItem(key) || 0);
+  randomAnchor.addEventListener('click', (e) => {
+    e.preventDefault();
 
-    if (lastShown && (now - lastShown) < oneDay) {
-      splash.style.display = 'none';
-      return;
-    }
+    
+    const anchors = Array.from(
+      document.querySelectorAll('.product-grid .product-card .product-card-img a')
+    ).filter(a => !a.closest('.random-card')) 
+     .map(a => a.getAttribute('href'))
+     .filter(h => h && h.trim());
 
-    localStorage.removeItem('mesopota_splash_last_shown');
+    if (anchors.length === 0) return;
 
-    setTimeout(() => {
-      splash.classList.add('fade-out');
-    }, 1200);
+    
+    const choice = anchors[Math.floor(Math.random() * anchors.length)];
 
-    setTimeout(() => {
-      splash.style.display = 'none';
-    }, 1800);
-  })();
+    
+    location.href = choice;
+  });
+});
     </script>
-
 </body>
 </html>
