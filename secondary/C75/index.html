@@ -434,13 +434,15 @@
     '../scans/Roadshow/jacket_front.jpg',
     '../scans/Roadshow/promo_art.png',
     '../scans/Roadshow/scan_cd.jpg',
-    '../scans/Roadshow/scan_jacket.jpg'
+    '../scans/Roadshow/scan_jacket.jpg',
+    '../scans/Roadshow/irl_poster.jpeg'
   ];
   const captions = [
     'Scan 1 — front cover',
     'Scan 2 — promo art',
     'Scan 3 — CD scan',
-    'Scan 4 — scan Jacket'
+    'Scan 4 — scan Jacket',
+    'Extra — Not a CD Case Scan but completely necessary'
   ]; 
 
   const wrapper = document.querySelector('.cd-gallery .g-img-wrapper');
@@ -449,7 +451,7 @@
   const nextBtn = document.querySelector('.cd-gallery .g-btn.next');
 
   let current = 0;
-  let animating = false;
+  let animating = true;
   const duration = 500; 
   function createImgEl(src, enterFrom) {
     const img = document.createElement('img');
