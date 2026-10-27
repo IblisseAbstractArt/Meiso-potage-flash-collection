@@ -62,7 +62,7 @@
         
         #wrapper {
             margin: 0 auto;
-            width: 800px;
+            width: 780px;
             text-align: left;
         }
         
@@ -235,6 +235,47 @@
         body.visuals-disabled #visual3::after {
             display: none !important;
         }
+
+        #info .description {
+  max-height: 12.5em;               
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+  position: relative;
+  padding: 0.5em;
+  background: transparent;
+}
+
+#info .description.expanded {
+  max-height: 2000px;               
+}
+
+#info .description::after {
+  
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3.2em;
+  background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1));
+  pointer-events: none;
+}
+
+#info .description.expanded::after {
+  display: none;
+}
+
+.readmore-toggle {
+  display: inline-block;
+  margin: 0.6em 0 1em;
+  background: #FF9900;
+  color: #fff;
+  border: none;
+  padding: 0.4em 0.8em;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 3px;
+}
         #media-controls {
     width: 480px;
     margin: 0 auto 10px;
@@ -303,7 +344,7 @@
   </div>
 
     <div id="media-controls" aria-label="Animation navigation">
-  <a href="funi.html" aria-label="Previous animation">
+  <a href="miya2.html" aria-label="Previous animation">
     <img src="../layout/srt_prev.png" alt="Previous">
   </a>
         
@@ -311,7 +352,7 @@
     <img src="../layout/str_visuals_button.png" alt="Toggle Visuals"/>
   </button>
 
-         <a href="icyas.html" aria-label="Next animation">
+         <a href="kagi2.html" aria-label="Next animation">
     <img src="../layout/srt_next.png" alt="Next">
   </a>
     </div>
@@ -319,9 +360,38 @@
   <div id="content">
     <div id="info" class="clearfix">
       <h2>プロダクトゲーム <span class="x-small">Information Game</span></h2>
-      <p>Strangely this game is from "MSPT-TORIYOKE" (the same announced CD to control bird pests).<br>
-      This a strange game from Yu-ki based on the bullet-hell gameplay but this time with Mystia Lorelei and the objetive is to go far as you can throught many levels (dont know if the levels are endless).
-      </p>
+      <div id="product-description" class="description" aria-live="polite">
+Hello, this is yu-ki.<br>
+<br>
+Thank you very much for picking up a copy of "Touhou Enshuzuka".<br>
+
+Currently, the members of Meisou Potage are gathered at my house, and I am writing this text while keeping an eye on them as they work on stuffing the CDs.<br>
+
+Regrettably, I missed the deadline for this work this time, and ended up causing trouble for a lot of people.<br>
+
+I would like to take this opportunity to apologize. I am sorry...<br>
+<br>
+Since this bonus CD is titled "Toriyoke" (Bird Repellent), I made a one-joke gag game that matches that exact vibe. It turned out to be an awful creation.<br>
+<br>
+The game itself is a relatively standard shooting game.<br>
+
+The controls conform to the original Touhou games.<br>
+
+Because it was rushed, there may be some known bugs, but please bear with them. Time's up!<br>
+<br>
+Thank you so much to Decchi-san for giving me permission to use the music (I'm sorry for suddenly calling you late at night the day before!), thank you as always.<br>
+
+And my deepest gratitude to ZUN-sama, the Kanushi, who is constantly opening up new worlds for us.<br>
+<br>
+Well then, let's meet again on the next stage!<br>
+<br>
+The day before the Reitaisai, at home<br>
+<br>
+yu-ki
+</div>
+<button class="readmore-toggle" aria-controls="product-description" aria-expanded="false">
+    Read more
+</button>
     
     <script src="https://giscus.app/client.js"
         data-repo="IblisseAbstractArt/Meiso-potage-flash-collection"
@@ -383,6 +453,30 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  
+  (function() {
+    const desc = document.getElementById('product-description');
+    const btn = document.querySelector('.readmore-toggle');
+    if (!desc || !btn) return;
 
+    
+    if (desc.scrollHeight <= desc.clientHeight + 2) {
+      btn.style.display = 'none';
+      return;
+    }
+
+    btn.addEventListener('click', function() {
+      const expanded = desc.classList.toggle('expanded');
+      
+      btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      btn.textContent = expanded ? 'Read less' : 'Read more';
+      
+      if (expanded) desc.setAttribute('tabindex', '-1'), desc.focus();
+    });
+  })();
+});
+</script>
 </body>
 </html>
