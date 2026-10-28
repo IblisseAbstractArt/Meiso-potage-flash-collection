@@ -1,6 +1,6 @@
 this is a collection of adobe flash (games and animations)
 From Meiso potage (alias Mesopota) and this repository is dedicated
-ONLY to html flash files.
+ONLY to touhou flash files.
 
 Why? because this project is meant to revive those old-outdated
 flash html content.
